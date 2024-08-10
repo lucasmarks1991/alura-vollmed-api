@@ -1,0 +1,37 @@
+services:
+  app:
+    container_name: vollmed-api
+    image: vollmed-api
+    build: .
+    depends_on:
+      - db
+    tty: true
+    volumes:
+      - .:/opt/app
+    working_dir: /opt/app
+    ports:
+      - 8080:8080
+    networks:
+      - vollmed
+  db:
+    container_name: vollmed-db
+    image: mysql:8
+    tty: true
+    restart: always
+    volumes:
+      - vollmed-db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${DB_DATABASE}
+    expose:
+      - 3306
+    networks:
+      - vollmed
+
+volumes:
+  vollmed-db:
+    name: vollmed-db
+
+networks:
+  vollmed:
+    name: vollmed
