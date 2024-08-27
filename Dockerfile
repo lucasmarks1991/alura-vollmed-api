@@ -4,8 +4,8 @@ FROM eclipse-temurin:17-alpine
 RUN apk update && apk add --no-cache curl unzip libxext libxrender libxtst libxi freetype procps gcompat \
     && rm -rf /var/cache/apk/* /tmp/* /usr/share/man
 
-# ssh client
-RUN apk update && apk add --no-cache openssh-client \
+# git dependencies
+RUN apk update && apk add --no-cache openssh-client git \
     && rm -rf /var/cache/apk/* /tmp/* /usr/share/man
 
 # dependencies
