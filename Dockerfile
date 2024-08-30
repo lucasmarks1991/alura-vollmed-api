@@ -1,15 +1,16 @@
-FROM eclipse-temurin:17-alpine
+FROM eclipse-temurin:17
 
 # devcontainer dependencies
-RUN apk update && apk add --no-cache curl unzip libxext libxrender libxtst libxi freetype procps gcompat \
-    && rm -rf /var/cache/apk/* /tmp/* /usr/share/man
+RUN apt update && apt install -y curl unzip procps libxext6 libxrender1 libxtst6 libxi6 libfreetype6 \
+    && rm -rf /var/lib/apt/lists/*
 
 # git dependencies
-RUN apk update && apk add --no-cache openssh-client git \
-    && rm -rf /var/cache/apk/* /tmp/* /usr/share/man
+RUN apt update && apt install -y openssh-client git \
+    && rm -rf /var/lib/apt/lists/*
 
 # dependencies
-RUN apk update && apk add --no-cache maven
+RUN apt update && apt install -y maven \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /opt/app
 
