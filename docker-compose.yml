@@ -17,7 +17,7 @@ services:
     container_name: vollmed-db
     image: mysql:8
     tty: true
-    restart: always
+    restart: unless-stopped
     volumes:
       - vollmed-db:/var/lib/mysql
     environment:
