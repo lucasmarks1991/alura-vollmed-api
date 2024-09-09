@@ -8,6 +8,7 @@ services:
     tty: true
     volumes:
       - .:/opt/app
+      - ~/.ssh:/root/.ssh
     working_dir: /opt/app
     ports:
       - 8080:8080
