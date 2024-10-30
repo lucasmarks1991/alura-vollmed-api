@@ -1,5 +1,6 @@
 package med.voll.api.controller;
 
+import jakarta.validation.Valid;
 import med.voll.api.paciente.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,12 +17,21 @@ public class PacienteController {
 
     @PostMapping("")
     @Transactional
-    public void cadastrar(@RequestBody DadosCadastroPaciente dadosCadastroPaciente) {
+    public void cadastrar(@RequestBody @Valid DadosCadastroPaciente dadosCadastroPaciente) {
         this.pacienteRepository.save(new Paciente(dadosCadastroPaciente));
     }
 
     @GetMapping("")
     public Page<DadosListagemPaciente> listar(@PageableDefault(sort = "nome") Pageable pageable) {
         return this.pacienteRepository.findAll(pageable).map(DadosListagemPaciente::new);
+    }
+
+    @PutMapping("")
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dadosAtualizacaoPaciente) {
+        var paciente = this.pacienteRepository.getReferenceById(dadosAtualizacaoPaciente.id());
+        paciente.atualizarInformacoes(dadosAtualizacaoPaciente);
+
+        this.pacienteRepository.save(paciente);
     }
 }

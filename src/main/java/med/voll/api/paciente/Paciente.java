@@ -1,6 +1,7 @@
 package med.voll.api.paciente;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,5 +35,19 @@ public class Paciente {
         this.telefone = dados.telefone();
         this.cpf = dados.cpf();
         this.endereco = new Endereco(dados.endereco());
+    }
+
+    public void atualizarInformacoes(@Valid DadosAtualizacaoPaciente dadosAtualizacaoPaciente) {
+        if (dadosAtualizacaoPaciente.nome() != null) {
+            this.nome = dadosAtualizacaoPaciente.nome();
+        }
+
+        if (dadosAtualizacaoPaciente.telefone() != null) {
+            this.telefone = dadosAtualizacaoPaciente.telefone();
+        }
+
+        if (dadosAtualizacaoPaciente.endereco() != null) {
+            this.endereco.atualizarInformacoes(dadosAtualizacaoPaciente.endereco());
+        }
     }
 }
