@@ -53,4 +53,8 @@ public class Paciente {
             this.endereco.atualizarInformacoes(dadosAtualizacaoPaciente.endereco());
         }
     }
+
+    public void inativar() {
+        this.ativo = false;
+    }
 }
