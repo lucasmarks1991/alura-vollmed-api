@@ -34,4 +34,13 @@ public class MedicoController {
 
         this.medicoRepository.save(medico);
     }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void inativar(@PathVariable Long id) {
+        var medico = this.medicoRepository.getReferenceById(id);
+        medico.inativar();
+
+        this.medicoRepository.save(medico);
+    }
 }
