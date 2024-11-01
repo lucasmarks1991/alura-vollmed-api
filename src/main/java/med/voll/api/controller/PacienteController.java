@@ -33,6 +33,14 @@ public class PacienteController {
         return ResponseEntity.ok(this.pacienteRepository.findAllByAtivoTrue(pageable).map(DadosListagemPaciente::new));
     }
 
+    @GetMapping("/{id}")
+    @Transactional
+    public ResponseEntity detalhar(@PathVariable Long id) {
+        var paciente = this.pacienteRepository.getReferenceById(id);
+
+        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
+    }
+
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity atualizar(
@@ -49,10 +57,10 @@ public class PacienteController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity inativar(@PathVariable Long id) {
-        var medico = this.pacienteRepository.getReferenceById(id);
-        medico.inativar();
+        var paciente = this.pacienteRepository.getReferenceById(id);
+        paciente.inativar();
 
-        this.pacienteRepository.save(medico);
+        this.pacienteRepository.save(paciente);
 
         return ResponseEntity.noContent().build();
     }
