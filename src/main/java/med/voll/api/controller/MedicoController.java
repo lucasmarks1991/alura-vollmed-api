@@ -34,6 +34,14 @@ public class MedicoController {
         return ResponseEntity.ok(this.medicoRepository.findAllByAtivoTrue(pageable).map(DadosListagemMedico::new));
     }
 
+    @GetMapping("/{id}")
+    @Transactional
+    public ResponseEntity detalhar(@PathVariable Long id) {
+        var medico = this.medicoRepository.getReferenceById(id);
+
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
+    }
+
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity atualizar(
