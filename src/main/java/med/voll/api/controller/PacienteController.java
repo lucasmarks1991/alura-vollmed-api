@@ -26,10 +26,10 @@ public class PacienteController {
         return this.pacienteRepository.findAllByAtivoTrue(pageable).map(DadosListagemPaciente::new);
     }
 
-    @PutMapping("")
+    @PutMapping("/{id}")
     @Transactional
-    public void atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dadosAtualizacaoPaciente) {
-        var paciente = this.pacienteRepository.getReferenceById(dadosAtualizacaoPaciente.id());
+    public void atualizar(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoPaciente dadosAtualizacaoPaciente) {
+        var paciente = this.pacienteRepository.getReferenceById(id);
         paciente.atualizarInformacoes(dadosAtualizacaoPaciente);
 
         this.pacienteRepository.save(paciente);
