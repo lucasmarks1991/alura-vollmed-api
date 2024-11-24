@@ -1,7 +1,6 @@
 package med.voll.api.domain.paciente;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -40,7 +39,7 @@ public class Paciente {
         this.ativo = true;
     }
 
-    public void atualizarInformacoes(@Valid DadosAtualizacaoPaciente dadosAtualizacaoPaciente) {
+    public void atualizarInformacoes(DadosAtualizacaoPaciente dadosAtualizacaoPaciente) {
         if (dadosAtualizacaoPaciente.nome() != null) {
             this.nome = dadosAtualizacaoPaciente.nome();
         }
